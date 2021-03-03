@@ -8,3 +8,7 @@ This game is a fork of [congerh/dino@3acbd11bcf9ef669594568ebbc78a9b90429f9e3](h
 
 * Press <kbd title="space bar">Space</kbd> or <kbd title="up arrow key">↑</kbd> to jump and to start the game.
 * Use <kbd title="down arrow key">↓</kbd> to duck.
+
+## License
+
+[BSD-3-Clause](https://git.io/Jqeln) © [Hoàng Văn Khải](https://github.com/KSXGitHub/).
