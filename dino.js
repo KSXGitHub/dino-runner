@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 // Extract source code from Chromium by congerh.
+// Patched by Hoàng Văn Khải
 (function() {
 'use strict';
 /**
@@ -57,7 +58,11 @@ function Runner(outerContainerId, opt_config) {
 
   // Sound FX.
   this.audioBuffer = null;
-  this.soundFx = {};
+  this.soundFx = {
+    BUTTON_PRESS: document.getElementById('offline-sound-press'),
+    HIT: document.getElementById('offline-sound-hit'),
+    SCORE: document.getElementById('offline-sound-reached'),
+  };
 
   // Global web audio context for playing sounds.
   this.audioContext = null;
@@ -312,24 +317,21 @@ Runner.prototype = {
    * Load and decode base 64 encoded sounds.
    */
   loadSounds: function() {
-    if (!IS_IOS) {
-      this.audioContext = new AudioContext();
+    // if (!IS_IOS) {
+    //   this.audioContext = new AudioContext();
 
-      var resourceTemplate =
-          document.getElementById(this.config.RESOURCE_TEMPLATE_ID).content;
+    //   for (var sound in Runner.sounds) {
+    //     var soundSrc =
+    //         document.getElementById(Runner.sounds[sound]).src;
+    //     soundSrc = soundSrc.substr(soundSrc.indexOf(',') + 1);
+    //     var buffer = decodeBase64ToArrayBuffer(soundSrc);
 
-      for (var sound in Runner.sounds) {
-        var soundSrc =
-            resourceTemplate.getElementById(Runner.sounds[sound]).src;
-        soundSrc = soundSrc.substr(soundSrc.indexOf(',') + 1);
-        var buffer = decodeBase64ToArrayBuffer(soundSrc);
-
-        // Async, so no guarantee of order in array.
-        this.audioContext.decodeAudioData(buffer, function(index, audioData) {
-            this.soundFx[index] = audioData;
-          }.bind(this, sound));
-      }
-    }
+    //     // Async, so no guarantee of order in array.
+    //     this.audioContext.decodeAudioData(buffer, function(index, audioData) {
+    //         this.soundFx[index] = audioData;
+    //       }.bind(this, sound));
+    //   }
+    // }
   },
 
   /**
@@ -907,15 +909,10 @@ Runner.prototype = {
 
   /**
    * Play a sound.
-   * @param {SoundBuffer} soundBuffer
+   * @param {HTMLAudioElement} audioElement
    */
-  playSound: function(soundBuffer) {
-    if (soundBuffer) {
-      var sourceNode = this.audioContext.createBufferSource();
-      sourceNode.buffer = soundBuffer;
-      sourceNode.connect(this.audioContext.destination);
-      sourceNode.start(0);
-    }
+  playSound: function(audioElement) {
+    if (audioElement) void audioElement.play()
   },
 
   /**

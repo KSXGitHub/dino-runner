@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>T-Rex Runner</title>
   <link rel="stylesheet" href="dino.css">
-  <script src="dino.js"></script>
 </head>
 <body id="t" class="offline">
   <div id="main-frame-error" class="interstitial-wrapper">
@@ -16,11 +15,12 @@
   <div id="offline-resources">
     <img id="offline-resources-1x" src="images/default_100_percent/100-offline-sprite.png" jstcache="0">
     <img id="offline-resources-2x" src="images/default_200_percent/200-offline-sprite.png">
-    <template id="audio-resources">
-      <audio id="offline-sound-press" src="sounds/button-press.mp3"></audio>
-      <audio id="offline-sound-hit" src="sounds/hit.mp3"></audio>
-      <audio id="offline-sound-reached" src="sounds/score-reached.mp3"></audio>
-    </template>
+    <div id="audio-resources">
+      <audio id="offline-sound-press" src="sounds/button-press.mp3" preload="auto"></audio>
+      <audio id="offline-sound-hit" src="sounds/hit.mp3" preload="auto"></audio>
+      <audio id="offline-sound-reached" src="sounds/score-reached.mp3" preload="auto"></audio>
+    </div>
   </div>
+  <script src="dino.js"></script>
 </body>
 </html>
